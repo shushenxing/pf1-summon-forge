@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="Pathfinder 1e 召唤生物面板工坊。选择生物、专长、模板和战斗状态，实时生成面板与计算依据。">
+  <title>召唤工坊 · PF1 Summon Forge</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="masthead">
+      <div class="brand">
+        <div class="brand-sigil" aria-hidden="true">✧</div>
+        <div><span class="eyebrow">PATHFINDER FIRST EDITION</span><h1>召唤工坊<span class="title-dot">.</span></h1></div>
+      </div>
+      <div class="header-tools"><span class="private-badge"><span class="badge-orb"></span>仅当前浏览器保存</span><button class="ghost-button" id="copy-top">复制整张面板</button></div>
+    </header>
+
+    <section class="intro-strip">
+      <div>
+        <p class="kicker">玉关白 · 大师召唤师专用</p>
+        <h2>把规则交给计算，把回合留给战斗。</h2>
+        <p>选择召唤生物、专长与战斗状态。面板实时更新，详细的数值依据列在下方。</p>
+      </div>
+      <div class="intro-decoration" aria-hidden="true"><div class="rune-ring">✦<span>✧</span></div></div>
+    </section>
+
+    <main class="workbench">
+      <aside class="control-column" aria-label="召唤设置">
+        <section class="panel control-panel">
+          <div class="panel-head"><div><span class="section-index">配置</span><h3>召唤设置</h3></div><button class="text-button" id="reset">恢复默认</button></div>
+          <div class="field-row">
+            <label class="field"><span>召唤法术</span><select id="spell"><option value="1">召唤怪物 I</option><option value="2">召唤怪物 II</option></select></label>
+            <label class="field"><span>召唤者等级</span><input id="casterLevel" type="number" min="1" max="20" step="1" value="3"></label>
+          </div>
+          <label class="field full"><span>召唤生物</span><select id="monster"></select></label>
+          <label class="field full"><span>召唤列表来源</span><select id="origin"></select><small class="field-helper" id="source-note"></small></label>
+          <div class="field-separator"></div>
+          <div class="subhead">召唤者与专长</div>
+          <label class="field full"><span>召唤者阵营</span><select id="casterAlignment"><option value="LG">守序善良（LG）</option><option value="NG">中立善良（NG）</option><option value="CG">混乱善良（CG）</option><option value="LN">守序中立（LN）</option><option value="N">绝对中立（N）</option><option value="CN">混乱中立（CN）</option><option value="LE">守序邪恶（LE）</option><option value="NE">中立邪恶（NE）</option><option value="CE">混乱邪恶（CE）</option></select></label>
+          <label class="toggle-row"><span class="toggle-copy"><strong>增强召唤</strong><small>力量与体质 +4（增强加值）</small></span><input id="augment" type="checkbox"><span class="switch" aria-hidden="true"></span></label>
+          <label class="toggle-row"><span class="toggle-copy"><strong>召唤善良怪物</strong><small>扩展列表；特殊列表生物获顽强</small></span><input id="summonGood" type="checkbox"><span class="switch" aria-hidden="true"></span></label>
+          <label class="field full"><span>生物模板</span><select id="template"></select><small class="field-helper" id="template-note"></small></label>
+          <label class="toggle-row" id="smiteRow"><span class="toggle-copy"><strong id="smiteTitle">启用惩击邪恶</strong><small>针对已指定的有效阵营目标</small></span><input id="smite" type="checkbox"><span class="switch" aria-hidden="true"></span></label>
+        </section>
+
+        <section class="panel control-panel battle-panel">
+          <div class="panel-head"><div><span class="section-index">场景</span><h3>战斗调整</h3></div><span class="subtle-pill">实时计算</span></div>
+          <label class="field full"><span>激励勇气加值</span><select id="inspire"><option value="0">无</option><option value="1">+1 攻击与伤害</option><option value="2">+2 攻击与伤害</option><option value="3">+3 攻击与伤害</option><option value="4">+4 攻击与伤害</option></select></label>
+          <div class="two-toggles"><label class="compact-toggle"><input id="flank" type="checkbox"><span>夹击 +2 命中</span></label><label class="compact-toggle"><input id="charge" type="checkbox"><span>冲锋 +2 命中 / AC –2</span></label></div>
+          <label class="compact-toggle special-toggle" id="powerRow"><input id="power" type="checkbox"><span>使用猛力攻击（Power Attack）</span></label>
+          <label class="field full" id="masteryRow"><span id="masteryTitle">元素掌控地形</span><select id="mastery"><option value="normal">不应用（单看基本面板）</option><option value="favorable">有利地形：攻击和伤害 +1</option><option value="unfavorable">不利地形：攻击和伤害 –4</option></select></label>
+          <p class="small-note">战斗加值仅在满足规则条件时勾选。攻击目标及特殊环境由你和 GM 判定。</p>
+        </section>
+
+        <section class="panel saved-panel">
+          <div class="panel-head"><div><span class="section-index">快捷方式</span><h3>我的预设</h3></div></div>
+          <div class="save-inline"><input id="preset-name" type="text" maxlength="32" placeholder="例如：惩击天界鹰"><button id="save-preset">保存</button></div>
+          <div id="presets" class="presets-list"></div>
+        </section>
+      </aside>
+
+      <div class="result-column">
+        <section class="stat-hero panel">
+          <div class="stat-hero-head"><div><span class="result-label">LIVE STAT BLOCK <span class="live-dot"></span></span><h2 id="creature-title">天界狼</h2><p id="creature-subtitle"></p></div><div class="cr-seal"><span>挑战等级</span><strong id="cr">1</strong></div></div>
+          <div class="quick-stats"><div><span>生命值 HP</span><strong id="hp">17</strong></div><div><span>防御等级 AC</span><strong id="ac">14</strong></div><div><span>先攻 INIT</span><strong id="init">+2</strong></div><div><span>移动速度</span><strong id="speed">50尺</strong></div></div>
+          <div class="stat-tags" id="stat-tags"></div>
+          <div class="hero-footer"><div id="summon-count"></div><div class="footer-actions"><button id="roll-count" class="outline-button">掷召唤数量</button><span class="rolled-count" id="rolled-count" aria-live="polite"></span></div></div>
+        </section>
+
+        <div class="stat-grid">
+          <section class="panel detail-panel">
+            <div class="detail-heading"><h3>防御能力</h3><span>DEFENSE</span></div>
+            <div id="defense" class="table-like"></div>
+          </section>
+          <section class="panel detail-panel">
+            <div class="detail-heading"><h3>六项属性</h3><span>ABILITY SCORES</span></div>
+            <div id="abilities" class="ability-grid"></div>
+          </section>
+        </div>
+
+        <section class="panel attack-panel">
+          <div class="detail-heading"><h3>攻击与伤害</h3><span>OFFENSE</span></div>
+          <div id="attacks" class="attack-list"></div>
+          <div id="combat-math" class="combat-math"></div>
+        </section>
+
+        <section class="panel detail-panel">
+          <div class="detail-heading"><h3>技能、专长与能力</h3><span>FEATURES & SKILLS</span></div>
+          <div id="features" class="features-grid"></div>
+        </section>
+
+        <section class="panel rules-panel">
+          <div class="detail-heading"><h3>计算依据</h3><span>TRANSPARENT RULES</span></div>
+          <p class="rules-hint">按照 PF1 原始怪物面板进行增量计算；特别规则会随当前配置变化。</p>
+          <div id="calculations" class="formula-list"></div>
+          <div class="source-line"><a id="source-link" href="#" rel="noreferrer noopener" target="_blank">查看怪物原始面板</a><span>初版规则校对中 · 如 GM 另有裁定，以团内裁定为准</span></div>
+        </section>
+
+        <section class="export-panel"><div><h3>可以直接带进 Owlbear 的面板</h3><p>复制当前状态的中文面板到聊天窗口，或下载文本。</p></div><div class="export-buttons"><button id="download" class="outline-button">下载 .txt</button><button id="copy" class="primary-button">复制完整面板</button></div></section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>PF1 SUMMON FORGE · 免费的非官方跑团辅助工具</span>
+      <span class="paizo-notice">PF1 Summon Forge uses trademarks and/or copyrights owned by Paizo Inc., used under <a href="https://paizo.com/licenses/communityuse" target="_blank" rel="noopener noreferrer">Paizo's Community Use Policy</a>. We are expressly prohibited from charging you to use or access this content. PF1 Summon Forge is not published, endorsed, or specifically approved by Paizo. For more information about Paizo Inc. and Paizo products, visit <a href="https://paizo.com" target="_blank" rel="noopener noreferrer">paizo.com</a>.</span>
+    </footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
