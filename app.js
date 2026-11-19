@@ -61,7 +61,9 @@ function render(){
   $('hp').textContent=d.hp;
   $('ac').textContent=d.ac[0];
   $('init').textContent=signed(m.init);
-  $('speed').textContent=m.speed.replace('陆行 ','').split('；')[0];
+  const flightSpeed = m.speed.match(/飞行\s*([^；]+)/);
+  $('speed').previousElementSibling.textContent = flightSpeed ? '飞行速度' : '移动速度';
+  $('speed').textContent = flightSpeed ? flightSpeed[1] : m.speed.replace('陆行 ','').split('；')[0];
   const tags=[];
   if(state.augment)tags.push(pill('增强召唤',true));
   if(d.templateName)tags.push(pill(`${d.templateName}模板`,true));
