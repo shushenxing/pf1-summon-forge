@@ -117,7 +117,7 @@ export function calculate(rawState){
   if(featDiehard)details.push('通过「召唤善良怪物」的特殊列表召唤：自动获得顽强（Diehard）。');
   if(m.id==='grig')details.push('格利精：召唤善良怪物的特殊列表明确禁止使用提琴（Fiddle）能力。');
   if(state.power)details.push('猛力攻击：BAB +1～+3 时命中 –1；唯一主要天生武器伤害额外 +3。');
-  return {state,m,name,ability:scores,cr,ac:m.ac.map(x=>x+acDelta),hp:hitPoints,saves,
+  return {state,m,name,ability:scores,cr:(m.cr.includes('/') && !(isTemplate && m.hd>=5) ? m.cr : cr),ac:m.ac.map(x=>x+acDelta),hp:hitPoints,saves,
     cmb:m.cmb+strDelta,cmd:m.cmd+strDelta,cmdTrip:m.cmdTrip!=null?m.cmdTrip+strDelta:null,
     attacks:attackList,specials,skills,featDiehard,smiteAttack,smiteDamage,
     sr,resist,dr,canSmite,templateName,countNotation,
