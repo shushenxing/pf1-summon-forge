@@ -1,6 +1,38 @@
 // PF1 Bestiary source data. Base stat blocks are kept separate from modifiers.
 // "good" means the creature is on the Summon Good Monster special list.
 export const monsters = [
+    {
+    id:'pony', name:'矮种马', en:'Pony', tier:1, lists:['standard'], templateEligible:true,
+    cr:'1/2', size:'中型', type:'动物', alignment:'N', hd:2, die:8, hp:13,
+    ability:[13,13,14,2,11,4], init:1, ac:[11,11,10], saves:[5,4,0], bab:1, cmb:2, cmd:13, cmdTrip:17,
+    speed:'陆行 40尺', senses:'昏暗视觉；灵敏嗅觉', feats:['耐力','奔跑（奖励）'],
+    attacks:[
+      {name:'蹄击',count:2,bonus:-3,dice:'1d3',damage:0,attackAbility:'str',scale:0.5,note:'未经战斗训练，视为次要天生武器'}
+    ],
+    skills:[['察觉',5]],
+    traits:[
+      '驯顺（Ex）：未经战斗训练时，蹄击作为次要天生武器',
+      '适合作为小型生物的坐骑'
+    ],
+    source:'https://legacy.aonprd.com/bestiary/horse.html',
+    tip:'矮种马是中型坐骑，比较适合半身人、侏儒等小型生物。中型人类通常需要大型坐骑。增强召唤提高力量、体质，并相应提高载重能力。'
+  },
+  {
+    id:'horse', name:'马', en:'Horse', tier:2, lists:['standard'], templateEligible:true,
+    cr:'1', size:'大型', type:'动物', alignment:'N', hd:2, die:8, hp:15,
+    ability:[16,14,17,2,13,7], init:2, ac:[11,11,9], saves:[6,5,1], bab:1, cmb:5, cmd:17, cmdTrip:21,
+    speed:'陆行 50尺', senses:'昏暗视觉；灵敏嗅觉', feats:['耐力','奔跑（奖励）'],
+    attacks:[
+      {name:'蹄击',count:2,bonus:-2,dice:'1d4',damage:1,attackAbility:'str',scale:0.5,note:'未经战斗训练，视为次要天生武器'}
+    ],
+    skills:[['察觉',6]],
+    traits:[
+      '驯顺（Ex）：未经战斗训练时，蹄击作为次要天生武器',
+      '大型生物，可以作为中型生物的坐骑'
+    ],
+    source:'https://legacy.aonprd.com/bestiary/horse.html',
+    tip:'普通马（轻型马）是大型坐骑，适合中型人类骑乘。其蹄击未经战斗训练时属于次要天生武器，力量伤害加值只计算一半。'
+  },
   {
     id:'eagle', name:'鹰', en:'Eagle', tier:1, lists:['standard','good'], templateEligible:true,
     cr:'1/2', size:'小型', type:'动物', alignment:'N', hd:1, die:8, hp:5,
