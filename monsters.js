@@ -8,7 +8,7 @@ export const monsters = [
     speed:'陆行 10尺；飞行 80尺（一般）', senses:'昏暗视觉', feats:['武器娴熟'],
     attacks:[{name:'爪抓',count:2,bonus:3,dice:'1d4',damage:0,attackAbility:'finesse',scale:1},{name:'啮咬',count:1,bonus:3,dice:'1d4',damage:0,attackAbility:'finesse',scale:1}],
     skills:[['飞行',8],['察觉',10]], traits:['察觉获得+8种族加值'],
-    source:'https://legacy.aonprd.com/bestiary/eagle.html', tip:'鹰具有三次天生武器攻击，非常适合接受激励勇气；三次攻击都不会因增强召唤提高命中（武器娴熟使用敏捷），伤害则会提高。'
+    source:'https://legacy.aonprd.com/bestiary/eagle.html', tip:'鹰具有三次天生武器攻击，可配合激励勇气；三次攻击都不会因增强召唤提高命中（武器娴熟使用敏捷），伤害则会提高。'
   },
   {
     id:'dog', name:'狗', en:'Dog', tier:1, lists:['standard','good'], templateEligible:true,
