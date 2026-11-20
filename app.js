@@ -10,7 +10,7 @@ const fields=['spell','monster','origin','casterAlignment','casterLevel','augmen
 const bools=new Set(['augment','summonGood','smite','flank','charge','power']);
 const nums=new Set(['spell','casterLevel','inspire']);
 const basePresets=[
-  {name:'天界狼 · 惩击',settings:{...DEFAULT_STATE,monster:'wolf'}},
+  {name:'天界狼 · 惩击邪恶',settings:{...DEFAULT_STATE,monster:'wolf'}},
   {name:'绝对狼 · 惩击混乱',settings:{...DEFAULT_STATE,monster:'wolf',origin:'standard',template:'resolute',smite:true}},
   {name:'天界鹰群 · 降环',settings:{...DEFAULT_STATE,monster:'eagle',origin:'good',spell:2}},
   {name:'法翁 · 法术支援',settings:{...DEFAULT_STATE,monster:'faun',origin:'good',template:'none',smite:false}},
