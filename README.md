@@ -18,7 +18,7 @@
 
 - 在召唤者阵营中选 **守序善良（LG）**，在生物模板中就可以直接选择 **天界模板** 或 **绝对模板**；两个模板不能叠加。其他守序阵营也可以选择绝对模板。
 - 按 [PF1 官方怪物进阶规则](https://www.legacy.aonprd.com/bestiary/monsterAdvancement.html) 实现：黑暗视觉 60 尺、强酸/寒冷/火焰抗力、基于 HD 的 DR（混乱）及 SR，**惩击混乱** 1/日（迅捷动作指定混乱目标，魅力正调整值加命中、HD 加伤害）。HD 达 5 才增加 CR。
-- 本工具采用包含四种阵营模板的[扩展版《召唤怪物》列表](https://www.d20pfsrd.com/magic/all-spells/s/summon-monster)：守序者可用绝对模板、善良者可用天界模板，因此守序善良者可以二选一。这与[最初《核心规则书》的法术文本](https://www.legacy.aonprd.com/coreRulebook/spells/summonMonster.html)有版本差异：旧版只明确列天界／炼狱模板。请让采用旧版列表的玩家留意，不影响本工具按扩展表直接选择绝对模板。
+- 本工具采用包含四种阵营模板的[扩展版《召唤怪物》列表](https://www.d20pfsrd.com/magic/all-spells/s/summon-monster)：守序者可用绝对模板、善良者可用天界模板，因此守序善良者可以二选一。
 - “召唤善良怪物”特殊列表赋予的顽强（Diehard）不自动适用于绝对模板的普通列表生物。网页会自动避免这种叠加。
 - 惩击效果只适用于合法目标，需按团内具体战况勾选“启用”。
 
